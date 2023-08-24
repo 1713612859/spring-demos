@@ -38,6 +38,6 @@ public class SysUser {
 	  * 登录日期
 	  */
 	 @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	 private Date LoginDate;
+	 private Date expireDate;
 
 }

@@ -35,7 +35,13 @@ public class JwtTokenUtils {
 		  map.put("typ", "JWT");
 		  System.out.println(sysUser + "user");
 		  String token =
-					 JWT.create().withClaim("userId", sysUser.getUserId()).withClaim("username", sysUser.getUsername()).withClaim("password", sysUser.getPassword()).withExpiresAt(expireDate).withIssuedAt(new Date()).sign(Algorithm.HMAC256(SECRET));
+					 // 这里的Claim 其实就是签名，根据签名生成一个token信息
+					 // token 又分为三段 中间那段才是用户信息
+					 JWT.create().withClaim("userId", sysUser.getUserId())
+								.withClaim("username", sysUser.getUsername())
+								.withClaim("password", sysUser.getPassword())
+								.withExpiresAt(expireDate).withIssuedAt(new Date())
+								.sign(Algorithm.HMAC256(SECRET));
 
 		  return token;
 
@@ -51,34 +57,41 @@ public class JwtTokenUtils {
 	 public static Map<String, Claim> verifyToken(String token) {
 		  DecodedJWT jwt = null;
 		  try {
+				// 利用秘钥 验证token
 				JWTVerifier verifier = JWT.require(Algorithm.HMAC256(SECRET)).build();
 				jwt = verifier.verify(token);
 		  }
 		  catch (Exception e) {
 				return null;
 		  }
+		  // 返回签名对象
 		  return jwt.getClaims();
 	 }
 
 
+	 /**
+	  * 根据token获取SysUser 对象
+	  *
+	  * @param token 令牌
+	  * @return {@link SysUser}
+	  */
 	 public static SysUser getPayload(String token) {
 
 		  DecodedJWT jwt = null;
 		  JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(SECRET)).build();
 		  DecodedJWT decodedJWT = jwtVerifier.verify(token);
 		  System.out.println(decodedJWT.getPayload());//base64编码的payLoad
-		  Claim userIdInt = decodedJWT.getClaim("userId");
-		  Claim username = decodedJWT.getClaim("username");
-		  Claim password = decodedJWT.getClaim("password");
-		  Long userId = userIdInt.asLong();
-		  System.out.println("userIdInt:" + userId);
-		  System.out.println("userIdString:" + username.asString());
-		  System.out.println("userName:" + password.asString());
-		  System.out.println("过期时间:" + (decodedJWT.getExpiresAt()).getTime());
+		  Map<String, Claim> claims = decodedJWT.getClaims();
+		  Long userId = claims.get("userId").asLong();
+		  String username = claims.get("username").asString();
+		  String password = claims.get("password").asString();
+		  long time = decodedJWT.getExpiresAt().getTime();
 
 		  SysUser sysUser = new SysUser();
 		  sysUser.setUserId(userId);
-		  sysUser.setUsername(username.asString());
+		  sysUser.setUsername(username);
+		  sysUser.setPassword(password);
+		  sysUser.setExpireDate(new Date(time));
 
 		  return sysUser;
 

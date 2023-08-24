@@ -21,15 +21,27 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/api/user/")
 public class UserController {
 
-	 // 用户登陆
+	 /**
+	  * 登录
+	  *
+	  * @param user 用户
+	  * @return {@link AjaxResult}
+	  */// 用户登陆
 	 @PostMapping("/login")
 	 public AjaxResult login(@RequestBody SysUser user) {
 		  String token = JwtTokenUtils.createToken(user);
 		  return AjaxResult.success(token);
 	 }
 
-	 @GetMapping("/secure/current_registrant")
-	 public AjaxResult currentRegistrant(HttpServletRequest request) {
+
+	 /**
+	  * 当前注册人
+	  *
+	  * @param request 请求
+	  * @return {@link AjaxResult}
+	  */
+	 @GetMapping("/secure/getCurrentUserInfo")
+	 public AjaxResult currentUser(HttpServletRequest request) {
 		  String token = request.getHeader("Auth");
 		  SysUser user = null;
 		  System.out.println("token = " + token);
