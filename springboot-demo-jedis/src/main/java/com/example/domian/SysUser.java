@@ -7,6 +7,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * 系统用户
@@ -26,4 +28,29 @@ public class SysUser implements Serializable {
 
 	 @DateTimeFormat(pattern = "yyyy/MM/dd")
 	 private Date birthday;
+
+
+
+
+	 public static void main(String[] args) {
+		  ReentrantLock rk = new ReentrantLock(true);
+		  AtomicInteger number = new AtomicInteger(50);
+		  while (number.get() > 0) {
+				rk.lock();
+				try {
+					 new Thread(() -> {
+						  System.out.println(Thread.currentThread().getName() + " {} : " + number.getAndDecrement());
+					 }).start();
+				}
+				catch (Exception e) {
+					 e.printStackTrace();
+				}
+				finally {
+					 rk.unlock();
+				}
+
+
+		  }
+	 }
+
 }
