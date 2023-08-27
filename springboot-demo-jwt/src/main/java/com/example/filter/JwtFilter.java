@@ -2,7 +2,7 @@ package com.example.filter;
 
 import com.auth0.jwt.interfaces.Claim;
 import org.springframework.http.HttpMethod;
-import utils.JwtTokenUtils;
+import com.example.utils.JwtTokenUtils;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;

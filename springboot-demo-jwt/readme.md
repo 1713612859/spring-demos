@@ -145,12 +145,13 @@ public class JwtTokenUtils {
 
 ## 4.创建 jwtFilter .实现Filter中#doFilter()方法 
 Filter 过滤，也可以理解为拦截，拦截请求，本质不同，但是都是在拦截访问某个接口之前
+
 ```java
 package com.example.filter;
 
 import com.auth0.jwt.interfaces.Claim;
 import org.springframework.http.HttpMethod;
-import utils.JwtTokenUtils;
+import com.example.utils.JwtTokenUtils;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -173,8 +174,7 @@ import java.util.Map;
  * @WebFilter WEB过滤器，urlPatterns 就是拦截当前应用路径下的 /api/user/secure/*
  * 如果请求头没有token 返回 no token
  * 有token 构建用户对象返回回去即可 我们通过解密构建用户对象
- */
-public class JwtFilter implements Filter {
+ */ public class JwtFilter implements Filter {
 	 @Override
 	 public void doFilter(ServletRequest req, ServletResponse res, FilterChain filterChain) throws IOException, ServletException {
 		  final HttpServletRequest request = (HttpServletRequest) req;

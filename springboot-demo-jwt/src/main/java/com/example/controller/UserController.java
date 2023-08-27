@@ -1,11 +1,10 @@
 package com.example.controller;
 
-import com.auth0.jwt.JWT;
 import com.example.domian.SysUser;
 import com.example.model.AjaxResult;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
-import utils.JwtTokenUtils;
+import com.example.utils.JwtTokenUtils;
 
 import javax.servlet.http.HttpServletRequest;
 

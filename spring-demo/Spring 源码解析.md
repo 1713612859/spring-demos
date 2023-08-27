@@ -10,7 +10,7 @@
 
 
 
-### 2. 
+### 2. Bean定义
 
 ```
 finalDefinition = {BeanDefinitionHolder@3198} "Bean definition with name 'userService' and aliases []: Generic bean: class [org.example.service.UserService]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null; defined in class path resource [applicationContext.xml]"
