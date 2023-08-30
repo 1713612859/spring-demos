@@ -48,6 +48,7 @@
 
 	<build>
 		<plugins>
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -75,7 +76,69 @@
 					</execution>
 				</executions>
 			</plugin>
+
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>1.4</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<filters>
+						<filter>
+							<artifact>*:*</artifact>
+							<excludes>
+								<exclude>META-INF/*.SF</exclude>
+								<exclude>META-INF/*.DSA</exclude>
+								<exclude>META-INF/*.RSA</exclude>
+							</excludes>
+						</filter>
+					</filters>
+					<shadedArtifactAttached>true</shadedArtifactAttached>
+					<shadedClassifierName>shaded</shadedClassifierName>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.akathist.maven.plugins.launch4j</groupId>
+				<artifactId>launch4j-maven-plugin</artifactId>
+				<version>1.7.25</version>
+				<executions>
+					<execution>
+						<id>l4j-clui</id>
+						<phase>package</phase>
+						<goals><goal>launch4j</goal></goals>
+						<configuration>
+							<!--运行方式，控制台-->
+							<headerType>gui</headerType>
+
+							<!--输出的exe文件-->
+							<outfile>${project.build.directory}/WeiKeDownload.exe</outfile>
+
+							<!--输出的jar-->
+							<jar>${project.build.directory}/${artifactId}-${version}.jar</jar>
+
+							<!--错误标题-->
+							<errTitle>WeiKeDownloadError</errTitle>
+							<classPath>
+								<!--换成自己的主类-->
+								<mainClass>com.example.SpringbootDemoSecurityApplication.java</mainClass>
+								<addDependencies>true</addDependencies>
+								<preCp>anything</preCp>
+							</classPath>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
 		</plugins>
 	</build>
+
 
 </project>

@@ -4,9 +4,6 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<bean id="userService" class="org.example.service.UserService">
-		<constructor-arg value="张三"/>
-
-	</bean>
+	<bean id="userService" class="org.example.service.impl.UserServiceImpl" lazy-init="false" autowire="byType" scope="singleton"></bean>
 
 </beans>

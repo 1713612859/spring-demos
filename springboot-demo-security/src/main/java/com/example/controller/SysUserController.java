@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.Console;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +40,7 @@ public class SysUserController {
 	  */
 	 @GetMapping
 	 public AjaxResult getUsers(){
+		  System.out.println();
 		  return AjaxResult.success(userList);
 	 }
 }

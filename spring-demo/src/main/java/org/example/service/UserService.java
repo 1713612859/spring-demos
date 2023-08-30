@@ -5,11 +5,13 @@ package org.example.service;
  * @CREATE_DATE 2023-08-26
  * @DOC 26
  */
-public class UserService {
+public interface UserService {
 
-	 private String name;
-
-	 public UserService(String name) {
-		  System.out.println("User-Service Inject" + name);
-	 }
+	 /**
+	  * 吃
+	  *
+	  * @param clazzName clazz名字
+	  * @return
+	  */
+	 void toEat(String clazzName) throws ClassNotFoundException;
 }
