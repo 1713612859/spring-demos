@@ -19,5 +19,16 @@ public class UserServiceImpl implements UserService {
 	 public void toEat(String clazzName) throws ClassNotFoundException {
 		  Class<?> clazz = Class.forName(clazzName);
 		  System.out.println(clazz.getName());
+		  Object x = null;
+		  try {
+				x = clazz.newInstance();
+		  }
+		  catch (InstantiationException e) {
+				throw new RuntimeException(e);
+		  }
+		  catch (IllegalAccessException e) {
+				throw new RuntimeException(e);
+		  }
+		  System.out.println(x);
 	 }
 }
