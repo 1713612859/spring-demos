@@ -3,6 +3,61 @@
 		PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		"http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+
+	<!--
+		 解析Mybatis 的步骤
+		    因此也需要在config配置文件中保持一致的顺序
+		    最后封装成为一个Configurarion对象
+
+		  private void parseConfiguration(XNode root) {
+	    try {
+	      // issue #117 read properties first
+	      propertiesElement(root.evalNode("properties"));  1
+	      Properties settings = settingsAsProperties(root.evalNode("settings")); 2
+	      loadCustomVfs(settings); 3
+	      loadCustomLogImpl(settings); 4
+	      typeAliasesElement(root.evalNode("typeAliases")); 5
+	      pluginElement(root.evalNode("plugins")); 6
+	      objectFactoryElement(root.evalNode("objectFactory")); 7
+	      objectWrapperFactoryElement(root.evalNode("objectWrapperFactory")); 8
+	      reflectorFactoryElement(root.evalNode("reflectorFactory")); 9
+	      settingsElement(settings); 从第二步的的Properties 加载放入到Configuration  延迟设置
+	      // read it after objectFactory and objectWrapperFactory issue #631
+	      environmentsElement(root.evalNode("environments"));  10 重要 ：解析访问数据库的地址，密码等条件 同时还可以设置一些连接参数等等
+	      databaseIdProviderElement(root.evalNode("databaseIdProvider")); databaseID 可以设置多个，但是你确定是否是否使用那个databaseID
+	      typeHandlerElement(root.evalNode("typeHandlers")); typeHandle 代码
+	      mapperElement(root.evalNode("mappers"));
+	    } catch (Exception e) {
+	      throw new BuilderException("Error parsing SQL Mapper Configuration. Cause: " + e, e);
+	    }
+	  }
+	-->
 	<properties resource="jdbc.properties"/>
+
+
+	<typeAliases>
+		<!--		<package name="com.example.domain" />-->
+		<!--
+			package 包扫描
+			typeAlias 一个一个设置 笨重但单一
+
+		-->
+		<typeAlias type="org.example.domain.SysUser" alias="sysUser"/>
+	</typeAliases>
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC"/>
+			<dataSource type="POOLED">
+				<property name="driver" value="${jdbc.driver}"/>
+				<property name="url" value="${jdbc.url}"/>
+				<property name="username" value="${jdbc.username}"/>
+				<property name="password" value="${jdbc.password}"/>
+			</dataSource>
+		</environment>
+	</environments>
+
+	<mappers>
+		<mapper resource="com/example/mapper/SysUserMapper.xml"/>
+	</mappers>
 
 </configuration>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--		CREATE TABLE `sys_user` (
+		`id` int(11) unsigned zerofill NOT NULL COMMENT '主键',
+		`username` varchar(255) NOT NULL COMMENT '用户名',
+		`firstName` varchar(255) NOT NULL COMMENT '姓氏',
+		`lastName` varchar(255) NOT NULL COMMENT '名字',
+		`password` varchar(255) NOT NULL COMMENT '密码',
+		`email` varchar(255) NOT NULL COMMENT '邮箱',
+		`age` int(11) DEFAULT NULL COMMENT '年龄',
+		`address` varchar(255) DEFAULT NULL COMMENT '地址',
+		`phoneNumber` varchar(20) DEFAULT NULL COMMENT '电话',
+		`lock_times` int(10) unsigned zerofill DEFAULT '0000000001' COMMENT '加锁',
+		PRIMARY KEY (`id`)
+		) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;-->
+
+<mapper namespace="org.example.mapper.SysUserMapper">
+	<resultMap id="sysUserVo" type="org.example.domain.SysUser">
+		<id column="id" property="userId" javaType="long" jdbcType="INTEGER"></id>
+		<result column="username" property="username" javaType="string" jdbcType="VARCHAR"/>
+		<result column="password" property="password" javaType="string" jdbcType="VARCHAR"/>
+	</resultMap>
+
+
+	<select id="selectList" resultMap="sysUserVo">
+		SELECT id,username,password
+		FROM sys_user
+	</select>
+</mapper>
+
