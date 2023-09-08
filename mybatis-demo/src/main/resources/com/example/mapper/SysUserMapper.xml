@@ -3,31 +3,47 @@
 		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<!--		CREATE TABLE `sys_user` (
-		`id` int(11) unsigned zerofill NOT NULL COMMENT '主键',
-		`username` varchar(255) NOT NULL COMMENT '用户名',
-		`firstName` varchar(255) NOT NULL COMMENT '姓氏',
-		`lastName` varchar(255) NOT NULL COMMENT '名字',
-		`password` varchar(255) NOT NULL COMMENT '密码',
-		`email` varchar(255) NOT NULL COMMENT '邮箱',
-		`age` int(11) DEFAULT NULL COMMENT '年龄',
-		`address` varchar(255) DEFAULT NULL COMMENT '地址',
-		`phoneNumber` varchar(20) DEFAULT NULL COMMENT '电话',
-		`lock_times` int(10) unsigned zerofill DEFAULT '0000000001' COMMENT '加锁',
-		PRIMARY KEY (`id`)
-		) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;-->
+<!--	CREATE TABLE `t_sys_user` (
+  `user_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `username` varchar(64) NOT NULL COMMENT '用户名',
+  `password` varchar(255) NOT NULL COMMENT '密码',
+  `create_date` datetime DEFAULT NULL COMMENT '创建时间',
+  `expire_date` datetime DEFAULT NULL COMMENT '过期时间',
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;-->
 
 <mapper namespace="org.example.mapper.SysUserMapper">
 	<resultMap id="sysUserVo" type="org.example.domain.SysUser">
-		<id column="id" property="userId" javaType="long" jdbcType="INTEGER"></id>
+		<id column="user_id" property="userId" javaType="long" jdbcType="INTEGER"></id>
 		<result column="username" property="username" javaType="string" jdbcType="VARCHAR"/>
 		<result column="password" property="password" javaType="string" jdbcType="VARCHAR"/>
+		<result column="create_date" property="createDate" javaType="date" jdbcType="TIMESTAMP"/>
 	</resultMap>
 
 
 	<select id="selectList" resultMap="sysUserVo">
-		SELECT id,username,password
-		FROM sys_user
+		SELECT user_id, username, password, create_date, expire_date
+		FROM t_sys_user
 	</select>
+
+	<insert id="save" parameterType="sysUser" useGeneratedKeys="true" keyProperty="userId">
+		insert into t_sys_user (username, password, create_date, expire_date)
+		values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{createDate}, #{expireDate})
+	</insert>
+
+	<update id="update">
+		update t_sys_user
+		set username    = #{username,jdbcType=VARCHAR},
+		    password    = #{password,jdbcType=VARCHAR},
+		    create_date = #{createDate,jdbcType=TIMESTAMP},
+		    expire_date = #{expireDate,jdbcType=TIMESTAMP}
+		where user_id = #{userId,jdbcType=BIGINT}
+	</update>
+
+	<delete id="delete">
+		delete
+		from t_sys_user
+		where user_id = #{userId}
+	</delete>
 </mapper>
 

@@ -1,5 +1,8 @@
 package org.example.domain;
 
+import lombok.Builder;
+import lombok.Data;
+
 import java.util.Date;
 
 /**
@@ -8,6 +11,8 @@ import java.util.Date;
  * @author LiuYunLong
  * @date 2023/09/07 13:52:43
  */
+@Data
+@Builder(toBuilder = true)
 public class SysUser {
 
 
