@@ -1,5 +1,6 @@
 package org.example.mapper;
 
+import org.apache.ibatis.annotations.Param;
 import org.example.domain.SysUser;
 
 import java.util.List;
@@ -13,7 +14,7 @@ public interface SysUserMapper {
 	  *
 	  * @return {@link List}<{@link SysUser}>
 	  */
-	 List<SysUser> selectList();
+	 List<SysUser> selectList(@Param("username") String username);
 
 	 /**
 	  * 新增

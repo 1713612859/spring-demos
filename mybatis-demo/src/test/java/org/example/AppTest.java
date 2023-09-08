@@ -1,5 +1,6 @@
 package org.example;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -21,6 +22,7 @@ import java.util.List;
 /**
  * Unit test for simple App.
  */
+@Slf4j
 public class AppTest {
     /**
      * 测试连接mybatis
@@ -57,9 +59,9 @@ public class AppTest {
         System.out.println("list = " + list.size());
 
         SysUserMapper sysUserMapper = sqlSession.getMapper(SysUserMapper.class);
-        List<SysUser> sysUsers = sysUserMapper.selectList();
+        List<SysUser> sysUsers = sysUserMapper.selectList("张志斌");
 
-        System.out.println("sysUsers = " + sysUsers.size());
+        log.debug(" current list" + " is  {} ", sysUsers.size());
     }
 
     @Test
@@ -70,7 +72,7 @@ public class AppTest {
         SqlSession sqlSession = sqlSessionFactory.openSession(true);
         SysUserMapper userMapper = sqlSession.getMapper(SysUserMapper.class);
 
-        SysUser user = SysUser.builder().username("张志斌").password("123456").createDate(new Date()).expireDate(new Date()).build();
+        SysUser user = SysUser.builder().username("张志斌22").password("12345622").createDate(new Date()).expireDate(new Date()).build();
 
         boolean res = userMapper.save(user);
 

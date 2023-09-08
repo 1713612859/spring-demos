@@ -21,9 +21,10 @@
 	</resultMap>
 
 
-	<select id="selectList" resultMap="sysUserVo">
+	<select id="selectList" resultMap="sysUserVo" parameterType="string">
 		SELECT user_id, username, password, create_date, expire_date
 		FROM t_sys_user
+		where username = #{username}
 	</select>
 
 	<insert id="save" parameterType="sysUser" useGeneratedKeys="true" keyProperty="userId">

@@ -1,7 +1,9 @@
 package org.example.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.ToString;
 
 import java.util.Date;
 
@@ -13,8 +15,9 @@ import java.util.Date;
  */
 @Data
 @Builder(toBuilder = true)
+@AllArgsConstructor
+@ToString
 public class SysUser {
-
 
 	 /**
 	  * 用户id
@@ -37,60 +40,7 @@ public class SysUser {
 	  */
 	 private Date expireDate;
 
-
 	 public SysUser() {
 	 }
 
-	 public SysUser(Long userId, String username, String password, Date createDate, Date expireDate) {
-		  this.userId = userId;
-		  this.username = username;
-		  this.password = password;
-		  this.createDate = createDate;
-		  this.expireDate = expireDate;
-	 }
-
-	 public Long getUserId() {
-		  return userId;
-	 }
-
-	 public void setUserId(Long userId) {
-		  this.userId = userId;
-	 }
-
-	 public String getUsername() {
-		  return username;
-	 }
-
-	 public void setUsername(String username) {
-		  this.username = username;
-	 }
-
-	 public String getPassword() {
-		  return password;
-	 }
-
-	 public void setPassword(String password) {
-		  this.password = password;
-	 }
-
-	 public Date getCreateDate() {
-		  return createDate;
-	 }
-
-	 public void setCreateDate(Date createDate) {
-		  this.createDate = createDate;
-	 }
-
-	 public Date getExpireDate() {
-		  return expireDate;
-	 }
-
-	 public void setExpireDate(Date expireDate) {
-		  this.expireDate = expireDate;
-	 }
-
-	 @Override
-	 public String toString() {
-		  return "SysUser{" + "userId=" + userId + ", username='" + username + '\'' + ", password='" + password + '\'' + ", createDate=" + createDate + ", expireDate=" + expireDate + '}';
-	 }
 }
