@@ -66,7 +66,7 @@
 				<version>${spring-boot.version}</version>
 				<configuration>
 					<mainClass>com.example.SpringbootDemoJwtApplication</mainClass>
-					<skip>true</skip>
+					<skip>false</skip>
 				</configuration>
 				<executions>
 					<execution>
