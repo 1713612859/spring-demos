@@ -11,3 +11,6 @@ spring全家桶相关的案例
    * 介绍springsecurity的简单使用  
 * spring-demo
   * 介绍spring源码解析 
+* java-exe-demo
+  * 介绍将java程序打包成为exe程序 实现本地调用
+
