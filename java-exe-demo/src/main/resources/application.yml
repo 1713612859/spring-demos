@@ -1,0 +1,21 @@
+server:
+  port: 8090
+  servlet:
+    encoding:
+      charset: UTF-8
+
+user:
+  dev:
+    liuyunlong:
+      name: zhangsan
+      age: 18
+      sex: nan
+  test:
+    cc:
+      name: cc2
+      age: 18
+      sex: nv
+spring:
+  banner:
+    image:
+      pixelmode: text
