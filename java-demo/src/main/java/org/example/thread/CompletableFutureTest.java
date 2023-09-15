@@ -45,28 +45,31 @@ public class CompletableFutureTest {
 			* 得到异步编排的任务
 			*/
 //		  CompletableFuture<Void> combinedFuture = CompletableFuture.allOf(future1, future2, future3);
+		  /**
+			* 随便一个结束 即可
+			*/
 		  CompletableFuture<Object> combinedFuture = CompletableFuture.anyOf(future1, future2, future3);
 
 		  String res = new String();
 
 		  // 返回结果
-//		  CompletableFuture<String> apply = combinedFuture.thenApply(unused -> {
-//
-//				try {
-//					 return res + future1.get() + future2.get() + future3.get();
-//				}
-//				catch (InterruptedException e) {
-//					 throw new RuntimeException(e);
-//				}
-//				catch (ExecutionException e) {
-//					 throw new RuntimeException(e);
-//				}
-//
-//
-//		  });
+		  CompletableFuture<String> apply = combinedFuture.thenApply(unused -> {
+
+				try {
+					 return res + future1.get() + future2.get() + future3.get();
+				}
+				catch (InterruptedException e) {
+					 throw new RuntimeException(e);
+				}
+				catch (ExecutionException e) {
+					 throw new RuntimeException(e);
+				}
 
 
-		  Object apply = combinedFuture.get();
+		  });
+
+
+
 
 		  long end = System.currentTimeMillis();
 		  // 得到结果 但是结果最终是同步的
