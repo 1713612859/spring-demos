@@ -3,12 +3,14 @@ package com.example;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ConfigurableApplicationContext;
 
 /***
  * 	http://blog.gtiwari333.com/2021/04/spring-boot-shutdown-and-restart.html
  */
 @SpringBootApplication
+@EnableConfigurationProperties
 public class SpringbootRestartDemoApplication {
 
 	 private static ConfigurableApplicationContext context;
@@ -31,5 +33,6 @@ public class SpringbootRestartDemoApplication {
 
 		  thread.setDaemon(false); // 不标记守护线程
 		  thread.start();
+
 	 }
 }

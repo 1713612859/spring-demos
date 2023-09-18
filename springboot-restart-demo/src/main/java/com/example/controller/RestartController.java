@@ -1,6 +1,8 @@
 package com.example.controller;
 
 import com.example.SpringbootRestartDemoApplication;
+import com.example.domain.vo.SysUser;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,6 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 @RestController
 public class RestartController {
+
+
+	 @Autowired
+	 private SysUser sysUser;
+
+
 	 /**
 	  * 容器优雅重启：
 	  * 实质性就是将容器重新实例化一遍；
@@ -22,4 +30,12 @@ public class RestartController {
 	 public void restart() {
 		  SpringbootRestartDemoApplication.restart();
 	 }
+
+
+	 @GetMapping("/sysUser")
+	 public SysUser sysUser() {
+		  return sysUser;
+	 }
+
+
 }
