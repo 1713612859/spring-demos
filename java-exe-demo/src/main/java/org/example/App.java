@@ -2,13 +2,14 @@ package org.example;
 
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.util.ResourceUtils;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.*;
+import java.lang.management.ManagementFactory;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,18 +18,19 @@ import java.util.Map;
  */
 @SpringBootApplication()
 public class App implements ApplicationRunner {
-    public static void main2(String[] args) throws FileNotFoundException {
-        // SpringApplication.run(App.class, args);
+    public static void main(String[] args) throws FileNotFoundException {
+        SpringApplication.run(App.class, args);
 
-        File file = ResourceUtils.getFile("classpath:application.yml");
-        Yaml yaml = new Yaml();
-        //读入文件
-        // load方法支持String，InputStream，Reader作为输入
-        Iterable<Object> objects = yaml.loadAll(new FileInputStream(file));
-        for (Object object : objects) {
-            System.out.println(object.getClass());
-            System.out.println(object);
-        }
+
+        // get name representing the running Java virtual machine.
+        String name = ManagementFactory.getRuntimeMXBean().getName();
+        System.out.println(name);
+        // get pid
+        String pid = name.split("@")[0];
+        System.out.println("Pid is:" + pid); //  7928@sixsix
+
+        System.out.println(excuteCMDCommand(pid));
+
 
     }
 
@@ -46,7 +48,35 @@ public class App implements ApplicationRunner {
     }
 
 
-    public static void main(String[] args) {
+    /**
+     * 执行一个cmd命令
+     *
+     * @param cmdCommand cmd命令
+     * @return 命令执行结果字符串，如出现异常返回null
+     */
+    public static String excuteCMDCommand(String cmdCommand) {
+
+        String pre = "TASKKILL /F /FI PID ge " + cmdCommand;
+        System.out.println("pre = " + pre);
+        StringBuilder stringBuilder = new StringBuilder();
+        Process process = null;
+        try {
+            process = Runtime.getRuntime().exec(pre);
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream(), "GBK"));
+            String line = null;
+            while ((line = bufferedReader.readLine()) != null) {
+                stringBuilder.append(line + "\n");
+            }
+            return stringBuilder.toString();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
+    public static void main2(String[] args) {
 
         ClassPathResource resource = new ClassPathResource("application.yml");
 //        InputStream asStream = this.getClass().getClassLoader().getResourceAsStream("application.yml");
