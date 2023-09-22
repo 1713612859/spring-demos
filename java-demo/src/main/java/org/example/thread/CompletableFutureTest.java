@@ -1,6 +1,7 @@
 package org.example.thread;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 import static java.lang.Thread.sleep;
 
