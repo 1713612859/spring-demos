@@ -6,14 +6,17 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * @Desc LocalDateTest
- * @Author LiuYunLong
+ * 本地日期测试
+ *
+ * @desc LocalDateTest
+ * @author  LiuYunLong
+ * @date 2023/09/22 17:31:57
  */
 public class LocalDateTest {
 
 	 /**
 	  * 参考：
-	  * https://www.cnblogs.com/huanshilang/p/12013386.html
+	  * <a href="https://www.cnblogs.com/huanshilang/p/12013386.html">LocalDate连接</a>
 	  */
 	 public static void main(String[] args) {
 		  LocalDate now = LocalDate.now();
