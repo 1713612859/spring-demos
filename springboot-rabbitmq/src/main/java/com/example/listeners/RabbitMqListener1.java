@@ -1,5 +1,10 @@
 package com.example.listeners;
 
+import com.example.domain.SysUser;
+import org.springframework.amqp.core.ExchangeTypes;
+import org.springframework.amqp.rabbit.annotation.Exchange;
+import org.springframework.amqp.rabbit.annotation.Queue;
+import org.springframework.amqp.rabbit.annotation.QueueBinding;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
@@ -40,5 +45,17 @@ public class RabbitMqListener1 {
 		  System.err.println("接收到了 [fanout.queue2] "+msg+" \t");
 	 }
 
+
+
+	 @RabbitListener(queues = "json.queue")
+//	 @RabbitListener(bindings = @QueueBinding(
+//				value = @Queue(value = "json.queue",durable = "true"),
+//				exchange = @Exchange(value = "json.lyl",type = ExchangeTypes.TOPIC),
+//				key = "json")
+//	 )
+	 public void listenerJsonQueue(SysUser sysUser){
+
+		  System.err.println("接收到了 [json.queue] "+sysUser+" \t");
+	 }
 
 }

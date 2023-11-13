@@ -5,5 +5,9 @@ spring:
     password: admin
     host: 192.168.19.128
     connection-timeout: 1000
+#logging:
+#  level:
+#    root: debug
+
 
 
