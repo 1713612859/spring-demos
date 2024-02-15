@@ -2,9 +2,10 @@ package com.example.controller;
 
 import com.example.domian.SysUser;
 import com.example.model.AjaxResult;
-import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.*;
 import com.example.utils.JwtTokenUtils;
+import org.springframework.util.StringUtils;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -48,5 +49,13 @@ public class UserController {
 				user = JwtTokenUtils.getPayload(token);
 		  }
 		  return AjaxResult.success(user);
+	 }
+
+
+
+	 @PostMapping("/insertUser")
+	 public AjaxResult insertUser(@Validated @RequestBody SysUser sysUser) {
+		  System.out.println("sysUser = " + sysUser);
+		  return AjaxResult.success(sysUser);
 	 }
 }

@@ -21,8 +21,8 @@ public class CompletableFutureTest {
 			*/
 		  CompletableFuture<String> future1 = CompletableFuture.supplyAsync(() -> {
 				try {
-					 String str = null;
-					 str.getBytes(); // 如果某一个发生异常 则导致所有异步任务全部失败
+//					 String str = null;
+//					 str.getBytes(); // 如果某一个发生异常 则导致所有异步任务全部失败
 					 System.out.println("Thread.currentThread().getName() = " + Thread.currentThread().getName());
 					 sleep(5000);
 				}
@@ -45,11 +45,11 @@ public class CompletableFutureTest {
 		  /**
 			* 得到异步编排的任务
 			*/
-//		  CompletableFuture<Void> combinedFuture = CompletableFuture.allOf(future1, future2, future3);
+		  CompletableFuture<Void> combinedFuture = CompletableFuture.allOf(future1, future2, future3);
 		  /**
 			* 随便一个结束 即可
 			*/
-		  CompletableFuture<Object> combinedFuture = CompletableFuture.anyOf(future1, future2, future3);
+//		  CompletableFuture<Object> combinedFuture = CompletableFuture.anyOf(future1, future2, future3);
 
 		  String res = new String();
 
@@ -74,8 +74,12 @@ public class CompletableFutureTest {
 
 		  long end = System.currentTimeMillis();
 		  // 得到结果 但是结果最终是同步的
-		  System.out.println("apply.get() = " + apply);
-		  System.out.println(System.currentTimeMillis());
+//		  System.out.println("apply.get() = " + apply.get());
+		  boolean done = apply.isCompletedExceptionally();
+		  if (done){
+				System.out.println("apply.get() = " + apply.get());
+		  }
+		  System.out.println(System.currentTimeMillis()-end);
 
 //		  1694790333019
 //		  Thread.currentThread().getName() = ForkJoinPool.commonPool-worker-1
